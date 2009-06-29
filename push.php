@@ -1,7 +1,7 @@
-#!/usr/bin/php -f
+#!/usr/bin/env php -f
 <?php
 
-define('CONFIG', $_ENV['HOME'].'/.push/config');
+define('CONFIG', $_ENV['HOME'].'/.push-pull/config');
 
 if (!file_exists(CONFIG)) {
   echo "ERROR: There is no config file at ".CONFIG."\n";
@@ -14,8 +14,8 @@ foreach ($config as $section => $settings) {
   if (preg_match('#^'.preg_quote($settings['local'],'#').'#', $_ENV['PWD'])) {
     define('LOCAL', $settings['local']);
     define('REMOTE', $settings['remote']);
-    define('EXCLUDE', $_ENV['HOME'].'/.push/exclude/'.$section);
-    define('EXCLUDE_SKEL', $_ENV['HOME'].'/.push/exclude/skel');
+    define('EXCLUDE', $_ENV['HOME'].'/.push-pull/exclude/'.$section);
+    define('EXCLUDE_SKEL', $_ENV['HOME'].'/.push-pull/exclude/skel');
 
 	if (isset($settings['git_branch'])) {
 		define('REQUIRED_GIT_BRANCH', $settings['git_branch']);
