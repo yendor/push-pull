@@ -1,7 +1,7 @@
 #!/usr/bin/env php -f
 <?php
 
-define('CONFIG', $_ENV['HOME'].'/.push/config');
+define('CONFIG', $_ENV['HOME'].'/.push-pull/config');
 
 if (!file_exists(CONFIG)) {
 	echo "ERROR: There is no config file at ".CONFIG."\n";
@@ -37,8 +37,8 @@ if ($group == 'all') {
 			exit(1);
 		}
 
-		if (!file_exists($_ENV['HOME'].'/.push/exclude/'.$section) && file_exists($_ENV['HOME'].'/.push/exclude/skel')) {
-			if (copy($_ENV['HOME'].'/.push/exclude/skel', $_ENV['HOME'].'/.push/exclude/'.$section)) {
+		if (!file_exists($_ENV['HOME'].'/.push-pull/exclude/'.$section) && file_exists($_ENV['HOME'].'/.push-pull/exclude/skel')) {
+			if (copy($_ENV['HOME'].'/.push-pull/exclude/skel', $_ENV['HOME'].'/.push-pull/exclude/'.$section)) {
 				echo "No exclude file found, copying the default skeleton.\n";
 			} else {
 				echo "No exclude file found and there was an error copying the skeleton, exiting.";
@@ -65,7 +65,7 @@ if ($group == 'all') {
 			}
 		}
 
-		$exclude = '--exclude-from='.$_ENV['HOME'].'/.push/exclude/'.$section;
+		$exclude = '--exclude-from='.$_ENV['HOME'].'/.push-pull/exclude/'.$section;
 		$local = escapeshellarg($config[$section]['local'].'/');
 		$remote = escapeshellarg($config[$section]['remote'].'/');
 		$command = '/usr/bin/rsync -av -e ssh --progress '.$exclude.' '.$remote.' '.$local;
@@ -88,8 +88,8 @@ if ($group == 'all') {
 
 	define('LOCAL', $config[$group]['local']);
 	define('REMOTE', $config[$group]['remote']);
-	define('EXCLUDE', $_ENV['HOME'].'/.push/exclude/'.$group);
-	define('EXCLUDE_SKEL', $_ENV['HOME'].'/.push/exclude/skel');
+	define('EXCLUDE', $_ENV['HOME'].'/.push-pull/exclude/'.$group);
+	define('EXCLUDE_SKEL', $_ENV['HOME'].'/.push-pull/exclude/skel');
 	if (isset($config[$group]['git_branch'])) {
 		define('REQUIRED_GIT_BRANCH', $config[$group]['git_branch']);
 	}

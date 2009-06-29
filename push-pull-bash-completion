@@ -7,7 +7,7 @@ _pull()
     COMPREPLY=()
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
-    opts=$(perl -e 'while (<>) { if ($. == 1) { print "all "} if ($_ =~ /\[([^\]]+)\]/) { print "$1 " } }' < ~/.push/config)
+    opts=$(perl -e 'while (<>) { if ($. == 1) { print "all "} if ($_ =~ /\[([^\]]+)\]/) { print "$1 " } }' < ~/.push-pull/config)
 
 	COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
 	return 0
