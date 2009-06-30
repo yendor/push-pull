@@ -90,17 +90,19 @@ foreach ($files as $file) {
 	$file_dir = dirname($relative_path);
 	$file_name = basename($relative_path);
 
-	// Push . from the site root
-	if($relative_path == $local) {
-		$file_name = '.';
-		$file_dir = '';
+	// Push . from the site root or a certain directory
+	if($file == '.') {
+		if($relative_path == $local) {
+			$file_name = '.';
+			$file_dir = '';
+		}
+		else {
+			$file_name = '.';
+			$file_dir = $relative_path;
+			$relative_path = '.';
+		}
 	}
-	// Push an entire directory from a relative path
-	else if($file == '.') {
-		$file_name = '.';
-		$file_dir = $relative_path;
-	}
-	$to_push[$file_dir][] =  escapeshellarg($file_name);
+	$to_push[$file_dir][] =  escapeshellarg($file);
 }
 
 foreach($sites as $section => $site) {
