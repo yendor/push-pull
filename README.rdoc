@@ -1,0 +1,85 @@
+= Getting started
+
+Assuming this package is installed in your home directory in the push-pull directory
+
+Add
+
+  source "$HOME/push-pull/push-pull-bash-completion"
+
+to your .bashrc or .bash_profile to get bash completion when using the pull command and source the file with
+
+  source ~/.bashrc
+
+or similarly for .bash_profile to reload it
+
+Next create a directory in your home directory called .push-pull with the command
+
+  mkdir -p $HOME/.push-pull/exclude
+
+Copy the default exclude file (default-skel) from the package directory to $HOME/.push-pull/skel and customise it to suit your needs.
+
+Now edit the $HOME/.push-pull/config file and define a map between a local path and a remote path. The format of the file is just ini config style so the block will look something like this.
+
+  [mysite]
+  local = "/var/www/mysite"
+  remote = "mysite@example.com:~/htdocs"
+
+The module name can be any string you want but normally you want it to be a short symbolic name. The local and remote settings are required. See the config settings section for full details on all the available settings
+
+== Usage
+
+Pulling the site down.
+
+  pull mysite
+
+where mysite is the name of the block you defined in your config file. Assuming you are including the bash completion script then you can tab complete on this file. This can be done while you are in any directory.
+
+Pushing a file/files up.
+
+  push file1 file2 dir1 ...
+
+this should work from anywhere and the script will work out the best way to group the rsync commands to minimise the number of individual rsyncs it has to do to push up all the files. The order of the rsyncs is not guaranteed to be the order that you specify the files on the command line so if you need to push up dependancies you should do them with multiple invokations of the push script.
+
+
+== Config Settings
+
+=== Required settings
+
+* local - This is the full local filesytem path WITHOUT a trailing /
+
+* remote - This is the remote path in standard rsync format such as user@example.com:~/htdocs WITHOUT a trailing /
+
+=== Optional Settings
+
+* git-branch - The name of the only branch that can accept pushes and pulls using this system. Useful for preventing your changes to a local branch from getting clobbered accidently
+
+* exclude - The name of the exclude file in the ~/.push-pull/excludes directory to use for exclude patterns for rsync. This defaults to the same name as the section it is declared in however you can use this to override the file name if for example you have multiple sites declared using the same local path
+
+== License (BSD License)
+
+Copyright (c) 2009 Rodney Amato <rodnet@gmail.com>
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+ - Redistributions of source code must retain the above copyright notice,
+   this list of conditions and the following disclaimer.
+ - Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+ - Neither the name of the Rodney Amato, Inc. nor the names of its contributors
+   may be used to endorse or promote products derived from this software
+   without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
