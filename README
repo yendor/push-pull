@@ -23,9 +23,8 @@ Now edit the $HOME/.push-pull/config file and define a map between a local path 
 [mysite]
 local = "/var/www/mysite"
 remote = "mysite@example.com:~/htdocs"
-git_branch = "master"
 
-The module name can be any string you want but normally you want it to be a short symbolic name. The local and remote settings are required however the git branch is optional. It will prevent you from pushing files or pulling the site down when you are on a different git branch to prevent you accidentally clobbering your changes.
+The module name can be any string you want but normally you want it to be a short symbolic name. The local and remote settings are required. See the config settings section for full details on all the available settings
 
 Usage
 ------------
@@ -42,6 +41,20 @@ push file1 file2 dir1 ...
 this should work from anywhere and the script will work out the best way to group the rsync commands to minimise the number of individual rsyncs it has to do to push up all the files. The order of the rsyncs is not guaranteed to be the order that you specify the files on the command line so if you need to push up dependancies you should do them with multiple invokations of the push script.
 
 
+Config Settings
+----------------
+Required settings
+-------------------
+local - This is the full local filesytem path WITHOUT a trailing /
+
+remote - This is the remote path in standard rsync format such as user@example.com:~/htdocs WITHOUT a trailing /
+
+Optional Settings
+-------------------
+git-branch - The name of the only branch that can accept pushes and pulls using this system. Useful for preventing your changes to a local branch from getting clobbered accidently
+
+exclude - The name of the exclude file in the ~/.push-pull/excludes directory to use for exclude patterns for rsync. This defaults to the same name as the section it is declared in however you can use this to override the file name if for example you have multiple sites declared using the same local path
+
 License (BSD License)
 ---------------------
 Copyright (c) 2009 Rodney Amato <rodnet@gmail.com>
@@ -55,7 +68,7 @@ modification, are permitted provided that the following conditions are met:
  - Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
    and/or other materials provided with the distribution.
- - Neither the name of the Chris Boulton, Inc. nor the names of its contributors
+ - Neither the name of the Rodney Amato, Inc. nor the names of its contributors
    may be used to endorse or promote products derived from this software
    without specific prior written permission.
 
