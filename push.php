@@ -133,9 +133,9 @@ foreach($sites as $section => $site) {
 		$rsync_result = 0;
 		passthru($command, $rsync_result);
 		if ($rsync_result == 0 ) {
-			GrowlMessage('Push Complete', 'Push of '.($argc-1).' files in '.$section.' completed successfully.');
+			GrowlMessage('Push Complete', 'Push of '.count($files).'/'.($argc-1).' files in '.$section.'/'.$filedir.' completed successfully.');
 		} else {
-			GrowlMessage('Push ERROR', 'Push of '.($argc-1).' files in '.$section.' failed.', true);
+			GrowlMessage('Push ERROR', 'Push of '.count($files).'/'.($argc-1).' files in '.$section.'/'.$filedir.' failed.', true);
 			exit(1);
 		}
 		echo "\n";
