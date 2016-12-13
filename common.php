@@ -17,8 +17,8 @@ define('CONFIG', HOME.'/.push-pull/config');
 define('EXCLUDE_SKEL', HOME.'/.push-pull/exclude/skel');
 
 if (!file_exists(CONFIG)) {
-	echo "ERROR: There is no config file at ".CONFIG."\n";
-	exit(1);
+    echo "ERROR: There is no config file at ".CONFIG."\n";
+    exit(1);
 }
 
 /**
@@ -28,16 +28,7 @@ if (!file_exists(CONFIG)) {
  * @param string $content The message content.
  * @param boolean $sticky Set to true to set the message as "sticky" and not disappear automatically.
  */
-function GrowlMessage($title, $content, $sticky=false)
+function GrowlMessage($title, $content, $sticky = false)
 {
-	if (!is_executable('/usr/local/bin/growlnotify')) {
-		return;
-	}
-
-	$stickyarg = '';
-	if ($sticky) {
-		$stickyarg = "-s";
-	}
-
-	system("/usr/local/bin/growlnotify $stickyarg -t ".escapeshellarg($title)." -m ".escapeshellarg($content));
+    printf("%s\n", $content);
 }
