@@ -15,7 +15,7 @@ foreach ($config as $section => $settings) {
 		$local = $settings['local'];
 		// If an exclude file isn't explicitly set, then use the default location for this site
 		if (!isset($settings['exclude'])) {
-			$settings['exclude'] = $_ENV['HOME'].'/.push-pull/exclude/'.$section;
+			$settings['exclude'] = HOME.'/.push-pull/exclude/'.$section;
 		}
 
 		if (!isset($settings['git_branch'])) {

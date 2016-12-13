@@ -45,11 +45,11 @@ foreach($groups as $section) {
 
 	// If an exclude file isn't explicitly set, then use the default location for this site
 	if (!isset($settings['exclude'])) {
-		$settings['exclude'] = $_ENV['HOME'].'/.push-pull/exclude/'.$section;
+		$settings['exclude'] = HOME.'/.push-pull/exclude/'.$section;
 	}
 
-	if (!file_exists($settings['exclude']) && file_exists($_ENV['HOME'].'/.push-pull/exclude/skel')) {
-		if (copy($_ENV['HOME'].'/.push-pull/exclude/skel', $settings['exclude'])) {
+	if (!file_exists($settings['exclude']) && file_exists(HOME.'/.push-pull/exclude/skel')) {
+		if (copy(HOME.'/.push-pull/exclude/skel', $settings['exclude'])) {
 			echo "No exclude file found, copying the default skeleton.\n";
 		} else {
 			echo "No exclude file found and there was an error copying the skeleton, exiting.";
