@@ -13,6 +13,19 @@ if (!defined('HOME')) {
     exit(1);
 }
 
+if (!empty($_ENV['PWD'])) {
+    define('PWD', $_ENV['PWD']);
+}
+
+if (!empty($_SERVER['PWD'])) {
+    define('PWD', $_SERVER['PWD']);
+}
+
+if (!defined('PWD')) {
+    echo "ERROR: Could not determine your working directory\n";
+    exit(1);
+}
+
 define('CONFIG', HOME.'/.push-pull/config');
 define('EXCLUDE_SKEL', HOME.'/.push-pull/exclude/skel');
 
